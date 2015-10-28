@@ -14,19 +14,17 @@
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">David Juez</string>
+    <string name="pref_title_display_name">City</string>
+    <string name="pref_default_display_name">Barcelona</string>
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+    <string name="pref_title_add_friends_to_messages">Unit system</string>
+    <string-array name="unit_titles">
+        <item>Metric</item>
+        <item>Imperial</item>
     </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
+    <string-array name="unit_values">
         <item>0</item>
-        <item>-1</item>
+        <item>1</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->
