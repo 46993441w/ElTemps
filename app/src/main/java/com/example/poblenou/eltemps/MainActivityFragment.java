@@ -51,6 +51,8 @@ public class MainActivityFragment extends Fragment {
         adapter = new ArrayAdapter<>(getContext(), R.layout.listview_row, R.id.txtRow, items);
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista);
         lvRow.setAdapter(adapter);
+
+        refresh();
         return rootView;
     }
 
@@ -85,6 +87,6 @@ public class MainActivityFragment extends Fragment {
     }
     private void refresh() {
         OwnApiClient apiClient = new OwnApiClient();
-        apiClient.updateForecasts(adapter);
+        apiClient.updateForecasts(adapter,getContext());
     }
 }

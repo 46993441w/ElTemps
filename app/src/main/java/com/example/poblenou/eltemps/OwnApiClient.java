@@ -1,6 +1,10 @@
 package com.example.poblenou.eltemps;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -43,9 +47,11 @@ public class OwnApiClient {
                 .build();
         service = retrofit.create(OpenWeatherMapService.class);
     }
-    public void updateForecasts(final ArrayAdapter<String> adapter) {
+    public void updateForecasts(final ArrayAdapter<String> adapter, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String city = preferences.getString("city", "Barcelona,es");
         Call<Forecast> forecastCall = service.getLocation(
-                CITY, "json", "metric", 7, APPID
+                city, "json", "metric", 7, APPID
         );
         forecastCall.enqueue(new Callback<Forecast>() {
             @Override
