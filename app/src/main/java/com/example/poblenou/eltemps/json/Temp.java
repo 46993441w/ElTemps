@@ -2,7 +2,9 @@
 package com.example.poblenou.eltemps.json;
 
 
-public class Temp {
+import java.io.Serializable;
+
+public class Temp  implements Serializable {
 
     private Double day;
     private Double min;

@@ -1,9 +1,10 @@
 
 package com.example.poblenou.eltemps.json;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Forecast {
+public class Forecast implements Serializable {
 
     private City city;
     private String cod;

@@ -1,7 +1,9 @@
 
 package com.example.poblenou.eltemps.json;
 
-public class Weather {
+import java.io.Serializable;
+
+public class Weather implements Serializable {
 
     private Long id;
     private String main;

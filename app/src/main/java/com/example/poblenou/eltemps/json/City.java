@@ -1,7 +1,9 @@
 
 package com.example.poblenou.eltemps.json;
 
-public class City {
+import java.io.Serializable;
+
+public class City  implements Serializable {
 
     private Long id;
     private String name;

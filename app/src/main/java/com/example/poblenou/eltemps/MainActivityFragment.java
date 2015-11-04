@@ -1,5 +1,6 @@
 package com.example.poblenou.eltemps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,7 +30,6 @@ public class MainActivityFragment extends Fragment {
 
     private List items;
     private ArrayAdapter adapter;
-    public static final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
 
     public MainActivityFragment() {
     }
@@ -48,9 +49,20 @@ public class MainActivityFragment extends Fragment {
         };
         //String data = refresh("Barcelona,es");
         items = new ArrayList<>(Arrays.asList(data));
-        adapter = new ArrayAdapter<>(getContext(), R.layout.listview_row, R.id.txtRow, items);
+        adapter = new WeatherAdapter(getContext(), R.layout.listview_row, items);
+        //adapter = new ArrayAdapter<>(getContext(), R.layout.listview_row, R.id.txtRow, items);
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista);
         lvRow.setAdapter(adapter);
+        lvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                com.example.poblenou.eltemps.json.List item = (com.example.poblenou.eltemps.json.List) parent.getItemAtPosition(position);
+
+                Intent i = new Intent(getContext(), DetailActivity.class);
+                i.putExtra("item", item);
+                startActivity(i);
+            }
+        });
 
         refresh();
         return rootView;

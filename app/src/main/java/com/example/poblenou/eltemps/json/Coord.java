@@ -1,7 +1,9 @@
 
 package com.example.poblenou.eltemps.json;
 
-public class Coord {
+import java.io.Serializable;
+
+public class Coord  implements Serializable {
 
     private Double lon;
     private Double lat;
