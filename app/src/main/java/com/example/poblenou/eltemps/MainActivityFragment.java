@@ -29,7 +29,7 @@ import javax.security.auth.callback.Callback;
 public class MainActivityFragment extends Fragment {
 
     private List items;
-    private ArrayAdapter adapter;
+    private WeatherAdapter adapter;
 
     public MainActivityFragment() {
     }

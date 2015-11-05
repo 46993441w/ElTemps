@@ -10,9 +10,6 @@ import android.widget.TextView;
 import com.example.poblenou.eltemps.json.List;
 
 
-/**
- * Created by alumne on 04/11/15.
- */
 public class WeatherAdapter extends ArrayAdapter<List> {
     public WeatherAdapter(Context context,int resource, java.util.List<List> objects){
         super(context,resource,objects);
@@ -30,7 +27,7 @@ public class WeatherAdapter extends ArrayAdapter<List> {
         }
 
         // Unim el codi en les Views del Layout
-        TextView tvForecast = (TextView) convertView.findViewById(R.id.txtRow);
+        TextView tvForecast = (TextView) convertView.findViewById(R.id.tvDetail);
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         tvForecast.setText(item.getForecastString());

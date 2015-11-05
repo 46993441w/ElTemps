@@ -37,7 +37,7 @@ interface OpenWeatherMapService {
 public class OwnApiClient {
     private final OpenWeatherMapService service;
     private final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/";
-    private final String CITY = "Barcelona,es";
+    private final String FORMAT = "json";
     private final String APPID = "0fe2ee29290ffcf8b046700e49fbda6a";
 
     public OwnApiClient() {
@@ -47,40 +47,28 @@ public class OwnApiClient {
                 .build();
         service = retrofit.create(OpenWeatherMapService.class);
     }
-    public void updateForecasts(final ArrayAdapter<String> adapter, Context context) {
+
+    public void updateForecasts(final WeatherAdapter adapter, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         String city = preferences.getString("city", "Barcelona,es");
+        String units = preferences.getString("units", "metric");
+
         Call<Forecast> forecastCall = service.getLocation(
-                city, "json", "metric", 7, APPID
+                city, FORMAT, units, 14, APPID
         );
         forecastCall.enqueue(new Callback<Forecast>() {
             @Override
             public void onResponse(Response<Forecast> response, Retrofit retrofit) {
                 Forecast forecast = response.body();
-                ArrayList<String> forecastStrings = new ArrayList<>();
-                for (List list : forecast.getList()) {
-                    String forecastString = getForecastString(list);
-                    forecastStrings.add(forecastString);
-                }
+
                 adapter.clear();
-                adapter.addAll(forecastStrings);
+                adapter.addAll(forecast.getList());
             }
             @Override
             public void onFailure(Throwable t) {
                 Log.e("Update Forecasts", Arrays.toString(t.getStackTrace()));
             }
         });
-    }
-    private String getForecastString(List list) {
-        Long dt = list.getDt();
-        java.util.Date date = new java.util.Date(dt * 1000);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E d/M");
-        String dateString = dateFormat.format(date);
-        String description = list.getWeather().get(0).getDescription();
-        Long min = Math.round(list.getTemp().getMin());
-        Long max = Math.round(list.getTemp().getMax());
-        return String.format("%s - %s - %s/%s",
-                dateString, description, min, max
-        );
     }
 }
