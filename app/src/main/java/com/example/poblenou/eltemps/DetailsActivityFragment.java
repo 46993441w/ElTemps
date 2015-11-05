@@ -1,10 +1,14 @@
 package com.example.poblenou.eltemps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.poblenou.eltemps.json.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -18,6 +22,11 @@ public class DetailsActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        Intent i = getActivity().getIntent();
+        List item = (List) i.getSerializableExtra("item");
+        TextView tvForecast = (TextView) view.findViewById(R.id.tvDetail);
+        tvForecast.setText(item.getForecastString());
+        return view;
     }
 }
