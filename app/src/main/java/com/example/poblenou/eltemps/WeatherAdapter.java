@@ -27,10 +27,10 @@ public class WeatherAdapter extends ArrayAdapter<List> {
         }
 
         // Unim el codi en les Views del Layout
-        TextView tvForecast = (TextView) convertView.findViewById(R.id.tvDetail);
+        TextView tvDetail = (TextView) convertView.findViewById(R.id.txtRow);
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
-        tvForecast.setText(item.getForecastString());
+        tvDetail.setText(item.getForecastString());
 
         // Retornem la View replena per a mostrarla
         return convertView;

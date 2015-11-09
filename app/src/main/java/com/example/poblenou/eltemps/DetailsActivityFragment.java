@@ -23,10 +23,13 @@ public class DetailsActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        //connexió que recull l'informació de l'altre activity
         Intent i = getActivity().getIntent();
         List item = (List) i.getSerializableExtra("item");
-        TextView tvForecast = (TextView) view.findViewById(R.id.tvDetail);
-        tvForecast.setText(item.getForecastString());
+
+        TextView tvDetail = (TextView) view.findViewById(R.id.tvDetail);
+        tvDetail.setText(item.getForecastString());
+
         return view;
     }
 }

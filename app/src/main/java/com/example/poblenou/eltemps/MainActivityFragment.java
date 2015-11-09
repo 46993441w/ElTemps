@@ -10,16 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.poblenou.eltemps.json.Forecast;
+import com.example.poblenou.eltemps.json.List;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
-import javax.security.auth.callback.Callback;
 
 
 
@@ -28,35 +24,38 @@ import javax.security.auth.callback.Callback;
  */
 public class MainActivityFragment extends Fragment {
 
-    private List items;
+    private ArrayList<List> items;
     private WeatherAdapter adapter;
 
     public MainActivityFragment() {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refresh();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        String[] data = {
-          "Lun 19/10 - Lluvioso - 31/17",
-          "Mar 20/10 - Soleado - 31/17",
-          "Mie 21/10 - Nublado - 31/17",
-          "Jue 22/10 - Niebla - 31/17",
-          "Vie 23/10 - Soleado - 31/17",
-          "Sab 24/10 - Soleado - 31/17",
-          "Dom 25/10 - Lluvioso - 31/17",
-        };
-        //String data = refresh("Barcelona,es");
-        items = new ArrayList<>(Arrays.asList(data));
+
+        items = new ArrayList<>();
         adapter = new WeatherAdapter(getContext(), R.layout.listview_row, items);
-        //adapter = new ArrayAdapter<>(getContext(), R.layout.listview_row, R.id.txtRow, items);
+
         ListView lvRow = (ListView) rootView.findViewById(R.id.llista);
         lvRow.setAdapter(adapter);
         lvRow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                com.example.poblenou.eltemps.json.List item = (com.example.poblenou.eltemps.json.List) parent.getItemAtPosition(position);
+                List item = (List) parent.getItemAtPosition(position);
 
                 Intent i = new Intent(getContext(), DetailActivity.class);
                 i.putExtra("item", item);
@@ -64,14 +63,7 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        refresh();
         return rootView;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -97,6 +89,7 @@ public class MainActivityFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void refresh() {
         OwnApiClient apiClient = new OwnApiClient();
         apiClient.updateForecasts(adapter,getContext());

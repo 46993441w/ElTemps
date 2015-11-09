@@ -18,7 +18,7 @@
     <ListPreference
         android:key="units"
         android:title="@string/pref_title_add_friends_to_messages"
-        android:defaultValue="0"
+        android:defaultValue="metric"
         android:entries="@array/unit_titles"
         android:entryValues="@array/unit_values"
         android:negativeButtonText="@null"
